@@ -1,66 +1,93 @@
-document.addEventListener("DOMContentLoaded", function () {
-  let form = document.getElementById("registrationForm");
+document.addEventListener('DOMContentLoaded', function () {
+  var form = document.getElementById('registrationForm');
+  var password = document.getElementById('password');
+  var confirmPassword = document.getElementById('confirmPassword');
+  var birthdate = document.getElementById('birthdate');
+  var inputs = form.querySelectorAll('input[required]');
 
-  form.addEventListener("submit", function (event) {
-    event.preventDefault();
-    event.stopPropagation();
+  function validatePasswordField() {
+      if (!validatePassword(password.value)) {
+          password.setCustomValidity('La contraseña debe contener al menos un número, una letra mayúscula y tener entre 6 y 18 caracteres.');
+      } else {
+          password.setCustomValidity('');
+      }
+  }
 
-    let isValid = true;
-    let password = document.getElementById("password");
-    let confirmPassword = document.getElementById("confirmPassword");
-    let birthdate = document.getElementById("birthdate");
+  function validateConfirmPasswordField() {
+      if (password.value !== confirmPassword.value) {
+          confirmPassword.setCustomValidity('Las contraseñas no coinciden.');
+      } else {
+          confirmPassword.setCustomValidity('');
+      }
+  }
 
-    if (!validatePassword(password.value)) {
-      password.setCustomValidity(
-        "La contraseña debe contener al menos un número, una letra mayúscula y tener entre 6 y 18 caracteres."
-      );
-      isValid = false;
-    } else {
-      password.setCustomValidity("");
-    }
+  function validateBirthdateField() {
+      if (!validateAge(birthdate.value)) {
+          birthdate.setCustomValidity('Debes tener al menos 13 años para registrarte.');
+      } else {
+          birthdate.setCustomValidity('');
+      }
+  }
 
-    if (password.value !== confirmPassword.value) {
-      confirmPassword.setCustomValidity("Las contraseñas no coinciden.");
-      isValid = false;
-    } else {
-      confirmPassword.setCustomValidity("");
-    }
+  function validateField(event) {
+      var field = event.target;
+      if (!field.checkValidity()) {
+          field.classList.add('is-invalid');
+          field.classList.remove('is-valid');
+      } else {
+          field.classList.remove('is-invalid');
+          field.classList.add('is-valid');
+      }
+  }
 
-    if (!validateAge(birthdate.value)) {
-      birthdate.setCustomValidity(
-        "Debes tener al menos 13 años para registrarte."
-      );
-      isValid = false;
-    } else {
-      birthdate.setCustomValidity("");
-    }
+  function validateForm(event) {
+      event.preventDefault();
+      event.stopPropagation();
 
-    if (isValid && form.checkValidity()) {
-      alert("Formulario enviado exitosamente!");
-      form.classList.add("was-validated");
-    } else {
-      form.classList.add("was-validated");
-    }
+      validatePasswordField();
+      validateConfirmPasswordField();
+      validateBirthdateField();
+
+      if (form.checkValidity()) {
+          alert('Formulario enviado exitosamente!');
+          form.classList.add('was-validated');
+      } else {
+          form.classList.add('was-validated');
+      }
+  }
+
+  form.addEventListener('submit', validateForm);
+
+  inputs.forEach(function(input) {
+      input.addEventListener('input', validateField);
+  });
+
+  password.addEventListener('input', function() {
+      validatePasswordField();
+      validateConfirmPasswordField();
+  });
+
+  confirmPassword.addEventListener('input', validateConfirmPasswordField);
+  birthdate.addEventListener('input', function() {
+      validateBirthdateField();
+      validateField({ target: birthdate });
   });
 
   function validatePassword(password) {
-    let regex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,18}$/;
-    return regex.test(password);
+      var regex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,18}$/;
+      return regex.test(password);
   }
 
   function validateAge(birthdate) {
-    let today = new Date();
-    let birthDate = new Date(birthdate);
-    let age = today.getFullYear() - birthDate.getFullYear();
-    let monthDifference = today.getMonth() - birthDate.getMonth();
+      var today = new Date();
+      var birthDate = new Date(birthdate);
+      var age = today.getFullYear() - birthDate.getFullYear();
+      var monthDifference = today.getMonth() - birthDate.getMonth();
 
-    if (
-      monthDifference < 0 ||
-      (monthDifference === 0 && today.getDate() < birthDate.getDate())
-    ) {
-      age--;
-    }
+      if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+      }
 
-    return age >= 13;
+      return age >= 13;
   }
 });
