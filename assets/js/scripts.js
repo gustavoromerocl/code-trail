@@ -49,11 +49,27 @@ document.addEventListener('DOMContentLoaded', function () {
       validateBirthdateField();
 
       if (form.checkValidity()) {
+          storeUserData();
           alert('Formulario enviado exitosamente!');
           form.classList.add('was-validated');
       } else {
           form.classList.add('was-validated');
       }
+  }
+
+  function storeUserData() {
+      var user = {
+          fullName: form.fullName.value,
+          username: form.username.value,
+          email: form.email.value,
+          password: form.password.value,
+          birthdate: form.birthdate.value,
+          address: form.address.value
+      };
+
+      var users = JSON.parse(localStorage.getItem('users')) || [];
+      users.push(user);
+      localStorage.setItem('users', JSON.stringify(users));
   }
 
   form.addEventListener('submit', validateForm);
