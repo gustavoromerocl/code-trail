@@ -1,39 +1,58 @@
-document.addEventListener('DOMContentLoaded', function () {
-  var userProfile = document.getElementById('userProfile');
+document.addEventListener('DOMContentLoaded', function() {
+  // Función para obtener el usuario logueado desde localStorage
+  function getLoggedInUser() {
+      return JSON.parse(localStorage.getItem('loggedInUser'));
+  }
 
+  // Función para cargar la información del usuario en el formulario
   function loadUserProfile() {
-    var loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-    if (loggedInUser) {
-      userProfile.innerHTML = `
-              <p><strong>Nombre Completo:</strong> ${loggedInUser.fullName}</p>
-              <p><strong>Nombre de Usuario:</strong> ${loggedInUser.username}</p>
-              <p><strong>Correo Electrónico:</strong> ${loggedInUser.email}</p>
-              <p><strong>Fecha de Nacimiento:</strong> ${loggedInUser.birthdate}</p>
-              <p><strong>Dirección:</strong> ${loggedInUser.address || 'No especificada'}</p>
-          `;
-    } else {
-      window.location.href = 'login.html';
-    }
+      const user = getLoggedInUser();
+      if (user) {
+          document.getElementById('fullName').value = user.fullName;
+          document.getElementById('username').value = user.username;
+          document.getElementById('email').value = user.email;
+          document.getElementById('dob').value = user.birthdate; // Directamente asignar la fecha en formato YYYY-MM-DD
+          document.getElementById('address').value = user.address;
+      }
   }
 
-  function checkLoggedInUser() {
-    var loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-    if (loggedInUser) {
-      document.getElementById('navbarLinks').innerHTML = `
-              <li class="nav-item">
-                  <a class="nav-link" href="index.html">Inicio</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="#" id="logoutButton">Cerrar Sesión</a>
-              </li>
-          `;
-      document.getElementById('logoutButton').addEventListener('click', function () {
-        localStorage.removeItem('loggedInUser');
-        window.location.href = 'login.html';
-      });
-    }
+  // Función para guardar la información actualizada del usuario en localStorage
+  function saveUserProfile(event) {
+      event.preventDefault();
+      
+      const user = getLoggedInUser();
+      const updatedUser = {
+          fullName: document.getElementById('fullName').value,
+          username: document.getElementById('username').value,
+          email: document.getElementById('email').value,
+          birthdate: document.getElementById('dob').value,
+          address: document.getElementById('address').value,
+          password: user.password // Preservar la contraseña existente
+      };
+
+      // Actualizar el usuario en localStorage
+      const users = JSON.parse(localStorage.getItem('users')) || [];
+      const userIndex = users.findIndex(u => u.email === user.email);
+
+      if (userIndex !== -1) {
+          users[userIndex] = updatedUser;
+          localStorage.setItem('users', JSON.stringify(users));
+          localStorage.setItem('loggedInUser', JSON.stringify(updatedUser));
+          alert('Perfil actualizado exitosamente');
+      } else {
+          alert('Error al actualizar el perfil');
+      }
   }
 
+  // Cargar la información del usuario cuando se cargue la página
   loadUserProfile();
-  checkLoggedInUser();
+
+  // Agregar evento para manejar el envío del formulario
+  document.getElementById('profileForm').addEventListener('submit', saveUserProfile);
+  
+  // Manejar el cierre de sesión
+  document.getElementById('logoutButton').addEventListener('click', function() {
+      localStorage.removeItem('loggedInUser');
+      window.location.href = 'login.html';
+  });
 });
