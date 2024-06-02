@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario de Registro</title>
+    <!-- Bootstrap CDN -->
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <link href="assets/css/styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="my-4 text-center">Registro de Compradores</h1>
+      <form id="registrationForm" class="needs-validation" novalidate>
+        <div class="form-group">
+          <label for="fullName">Nombre Completo</label>
+          <input type="text" class="form-control" id="fullName" required />
+          <div class="invalid-feedback">
+            Por favor, ingresa tu nombre completo.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="username">Nombre de Usuario</label>
+          <input type="text" class="form-control" id="username" required />
+          <div class="invalid-feedback">
+            Por favor, ingresa un nombre de usuario.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Correo Electrónico</label>
+          <input type="email" class="form-control" id="email" required />
+          <div class="invalid-feedback">
+            Por favor, ingresa un correo electrónico válido.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Contraseña</label>
+          <input type="password" class="form-control" id="password" required />
+          <div class="invalid-feedback">
+            La contraseña debe contener al menos un número, una letra mayúscula
+            y tener entre 6 y 18 caracteres.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Repetir Contraseña</label>
+          <input
+            type="password"
+            class="form-control"
+            id="confirmPassword"
+            required
+          />
+          <div class="invalid-feedback">Las contraseñas no coinciden.</div>
+        </div>
+        <div class="form-group">
+          <label for="birthdate">Fecha de Nacimiento</label>
+          <input type="date" class="form-control" id="birthdate" required />
+          <div class="invalid-feedback">
+            Debes tener al menos 13 años para registrarte.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="address">Dirección de Despacho (Opcional)</label>
+          <input type="text" class="form-control" id="address" />
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+        <button type="reset" class="btn btn-secondary">Limpiar</button>
+      </form>
+    </div>
+
+    <!-- Bootstrap and JavaScript CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom JS -->
+    <script src="assets/js/scripts.js"></script>
+  </body>
+</html>
