@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     function getLoggedInUser() {
         return JSON.parse(localStorage.getItem('loggedInUser'));
     }
@@ -34,13 +34,13 @@ document.addEventListener('DOMContentLoaded', function () {
                         </div>
                         <div class="mt-auto">
                             <p class="card-text"><small class="text-muted">Publicado el ${new Date(post.date).toLocaleString()}</small></p>
-                            <div class="d-flex justify-content-start">
-                                <a href="edit-post.html?id=${post.id}" class="btn btn-outline-primary btn-sm">
-                                    <i class="bi bi-pencil"></i>
-                                </a>
+                            <div class="d-flex justify-content-end">
                                 <button class="btn btn-outline-danger btn-sm me-2" onclick="deletePost(${post.id})">
-                                    <i class="bi bi-trash"></i>
+                                    <i class="bi bi-trash"></i> Eliminar
                                 </button>
+                                <a href="edit-post.html?id=${post.id}&from=my-posts" class="btn btn-outline-primary btn-sm">
+                                    <i class="bi bi-pencil"></i> Editar
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    window.deletePost = function (postId) {
+    window.deletePost = function(postId) {
         const posts = JSON.parse(localStorage.getItem('posts')) || [];
         const updatedPosts = posts.filter(post => post.id !== postId);
 

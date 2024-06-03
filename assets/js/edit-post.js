@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const user = getLoggedInUser();
-    if (user.username !== post.userId) {
+    if (user.username !== post.userId && user.role !== 'admin') {
       alert('No tienes permiso para editar esta publicación.');
       window.location.href = 'my-posts.html';
       return;
@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const postId = document.getElementById('postId').value;
     const title = document.getElementById('title').value;
     const content = document.getElementById('content').value;
+    const from = new URLSearchParams(window.location.search).get('from');
 
     const posts = JSON.parse(localStorage.getItem('posts')) || [];
     const postIndex = posts.findIndex(post => post.id === parseInt(postId));
@@ -43,7 +44,11 @@ document.addEventListener('DOMContentLoaded', function () {
       posts[postIndex].content = content;
       localStorage.setItem('posts', JSON.stringify(posts));
       alert('Publicación actualizada exitosamente.');
-      window.location.href = 'my-posts.html';
+      if (from === 'index') {
+        window.location.href = 'index.html';
+      } else {
+        window.location.href = 'my-posts.html';
+      }
     } else {
       alert('Error al actualizar la publicación.');
     }
@@ -54,6 +59,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (postId) {
     loadPostData(postId);
+  } else {
+    alert('No se encontró la publicación.');
+    window.location.href = 'my-posts.html';
   }
 
   document.getElementById('editPostForm').addEventListener('submit', savePost);
