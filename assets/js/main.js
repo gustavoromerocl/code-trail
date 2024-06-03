@@ -4,34 +4,34 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Crear el usuario administrador si no existe
   function createAdminUser() {
-    const users = JSON.parse(localStorage.getItem('users')) || [];
-    const adminExists = users.some(user => user.email === 'admin@admin.com');
+      const users = JSON.parse(localStorage.getItem('users')) || [];
+      const adminExists = users.some(user => user.email === 'admin@admin.com');
 
-    if (!adminExists) {
-      const adminUser = {
-        fullName: 'Admin User',
-        username: 'admin',
-        email: 'admin@admin.com',
-        password: 'Admin2024',
-        birthdate: '1970-01-01',
-        address: 'Admin Address',
-        role: 'admin'
-      };
-      users.push(adminUser);
-      localStorage.setItem('users', JSON.stringify(users));
-    }
+      if (!adminExists) {
+          const adminUser = {
+              fullName: 'Admin User',
+              username: 'admin',
+              email: 'admin@admin.com',
+              password: 'Admin2024',
+              birthdate: '1970-01-01',
+              address: 'Admin Address',
+              role: 'admin'
+          };
+          users.push(adminUser);
+          localStorage.setItem('users', JSON.stringify(users));
+      }
   }
 
   createAdminUser();
 
   function getLoggedInUser() {
-    return JSON.parse(localStorage.getItem('loggedInUser'));
+      return JSON.parse(localStorage.getItem('loggedInUser'));
   }
 
   function checkLoggedInUser() {
-    var loggedInUser = getLoggedInUser();
-    if (loggedInUser) {
-      navbarLinks.innerHTML = `
+      var loggedInUser = getLoggedInUser();
+      if (loggedInUser) {
+          navbarLinks.innerHTML = `
               <li class="nav-item">
                   <a class="nav-link" href="#">${loggedInUser.username}</a>
               </li>
@@ -48,12 +48,12 @@ document.addEventListener('DOMContentLoaded', function () {
                   <a class="nav-link" href="#" id="logoutButton">Cerrar Sesión</a>
               </li>
           `;
-      document.getElementById('logoutButton').addEventListener('click', function () {
-        localStorage.removeItem('loggedInUser');
-        window.location.href = 'login.html';
-      });
-    } else {
-      navbarLinks.innerHTML = `
+          document.getElementById('logoutButton').addEventListener('click', function () {
+              localStorage.removeItem('loggedInUser');
+              window.location.href = 'login.html';
+          });
+      } else {
+          navbarLinks.innerHTML = `
               <li class="nav-item">
                   <a class="nav-link" href="login.html">Iniciar Sesión</a>
               </li>
@@ -61,17 +61,17 @@ document.addEventListener('DOMContentLoaded', function () {
                   <a class="nav-link" href="registration.html">Registrarse</a>
               </li>
           `;
-    }
+      }
   }
 
   function loadPosts() {
-    var posts = JSON.parse(localStorage.getItem('posts')) || [];
-    var loggedInUser = getLoggedInUser();
+      var posts = JSON.parse(localStorage.getItem('posts')) || [];
+      var loggedInUser = getLoggedInUser();
 
-    postsContainer.innerHTML = posts.map(function (post) {
-      return `
+      postsContainer.innerHTML = posts.map(function (post) {
+          return `
               <div class="col-md-4">
-                  <div class="card h-100">
+                  <div class="card h-100" onclick="viewPost(${post.id})" style="cursor: pointer;">
                       <div class="card-body d-flex flex-column">
                           <div>
                               <h5 class="card-title">${post.title}</h5>
@@ -81,10 +81,10 @@ document.addEventListener('DOMContentLoaded', function () {
                               <p class="card-text"><small class="text-muted">Publicado el ${new Date(post.date).toLocaleString()}</small></p>
                               ${loggedInUser && loggedInUser.role === 'admin' ? `
                                   <div class="d-flex justify-content-end">
-                                      <button class="btn btn-outline-danger btn-sm me-2" onclick="deletePost(${post.id})">
+                                      <button class="btn btn-outline-danger btn-sm me-2" onclick="event.stopPropagation(); deletePost(${post.id});">
                                           <i class="bi bi-trash"></i> Eliminar
                                       </button>
-                                      <a href="edit-post.html?id=${post.id}&from=index" class="btn btn-outline-primary btn-sm">
+                                      <a href="edit-post.html?id=${post.id}&from=index" class="btn btn-outline-primary btn-sm" onclick="event.stopPropagation();">
                                           <i class="bi bi-pencil"></i> Editar
                                       </a>
                                   </div>
@@ -94,15 +94,19 @@ document.addEventListener('DOMContentLoaded', function () {
                   </div>
               </div>
           `;
-    }).join('');
+      }).join('');
   }
 
-  window.deletePost = function (postId) {
-    const posts = JSON.parse(localStorage.getItem('posts')) || [];
-    const updatedPosts = posts.filter(post => post.id !== postId);
+  window.deletePost = function(postId) {
+      const posts = JSON.parse(localStorage.getItem('posts')) || [];
+      const updatedPosts = posts.filter(post => post.id !== postId);
 
-    localStorage.setItem('posts', JSON.stringify(updatedPosts));
-    loadPosts();
+      localStorage.setItem('posts', JSON.stringify(updatedPosts));
+      loadPosts();
+  };
+
+  window.viewPost = function(postId) {
+      window.open(`view-post.html?id=${postId}`, '_blank');
   };
 
   checkLoggedInUser();

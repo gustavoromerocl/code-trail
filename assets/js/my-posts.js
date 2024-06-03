@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const postCard = document.createElement('div');
             postCard.classList.add('col-md-4', 'mb-3');
             postCard.innerHTML = `
-                <div class="card h-100">
+                <div class="card h-100" onclick="viewPost(${post.id})" style="cursor: pointer;">
                     <div class="card-body d-flex flex-column">
                         <div>
                             <h5 class="card-title">${post.title}</h5>
@@ -35,10 +35,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="mt-auto">
                             <p class="card-text"><small class="text-muted">Publicado el ${new Date(post.date).toLocaleString()}</small></p>
                             <div class="d-flex justify-content-end">
-                                <button class="btn btn-outline-danger btn-sm me-2" onclick="deletePost(${post.id})">
+                                <button class="btn btn-outline-danger btn-sm me-2" onclick="event.stopPropagation(); deletePost(${post.id});">
                                     <i class="bi bi-trash"></i> Eliminar
                                 </button>
-                                <a href="edit-post.html?id=${post.id}&from=my-posts" class="btn btn-outline-primary btn-sm">
+                                <a href="edit-post.html?id=${post.id}&from=my-posts" class="btn btn-outline-primary btn-sm" onclick="event.stopPropagation();">
                                     <i class="bi bi-pencil"></i> Editar
                                 </a>
                             </div>
@@ -56,6 +56,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         localStorage.setItem('posts', JSON.stringify(updatedPosts));
         loadUserPosts();
+    };
+
+    window.viewPost = function(postId) {
+        window.open(`view-post.html?id=${postId}`, '_blank');
     };
 
     loadUserPosts();
