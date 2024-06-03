@@ -27,7 +27,8 @@ document.addEventListener('DOMContentLoaded', function() {
           email: document.getElementById('email').value,
           birthdate: document.getElementById('dob').value,
           address: document.getElementById('address').value,
-          password: user.password // Preservar la contraseña existente
+          password: user.password,
+          role: user.role || ''
       };
 
       // Actualizar el usuario en localStorage
