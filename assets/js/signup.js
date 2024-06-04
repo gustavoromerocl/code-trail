@@ -90,10 +90,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     password.addEventListener('input', function () {
         validatePasswordField();
-        validateConfirmPasswordField();
     });
 
-    confirmPassword.addEventListener('input', validateConfirmPasswordField);
+    confirmPassword.addEventListener('input', () => validateConfirmPasswordField());
     birthdate.addEventListener('input', function () {
         validateBirthdateField();
         validateField({ target: birthdate });
