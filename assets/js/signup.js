@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var form = document.getElementById('registrationForm');
-    var password = document.getElementById('password');
-    var confirmPassword = document.getElementById('confirmPassword');
-    var birthdate = document.getElementById('birthdate');
-    var inputs = form.querySelectorAll('input[required]');
+    let form = document.getElementById('registrationForm');
+    let password = document.getElementById('password');
+    let confirmPassword = document.getElementById('confirmPassword');
+    let birthdate = document.getElementById('birthdate');
+    let inputs = form.querySelectorAll('input[required]');
 
     function validatePasswordField() {
         if (!validatePassword(password.value)) {
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function validateField(event) {
-        var field = event.target;
+        let field = event.target;
         if (!field.checkValidity()) {
             field.classList.add('is-invalid');
             field.classList.remove('is-valid');
@@ -61,14 +61,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function isEmailDuplicated(email) {
-        var users = JSON.parse(localStorage.getItem('users')) || [];
+        let users = JSON.parse(localStorage.getItem('users')) || [];
         return users.some(function (user) {
             return user.email === email;
         });
     }
 
     function storeUserData() {
-        var user = {
+        let user = {
             fullName: form.fullName.value,
             username: form.username.value,
             email: form.email.value,
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
             address: form.address.value
         };
 
-        var users = JSON.parse(localStorage.getItem('users')) || [];
+        let users = JSON.parse(localStorage.getItem('users')) || [];
         users.push(user);
         localStorage.setItem('users', JSON.stringify(users));
     }
@@ -100,15 +100,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function validatePassword(password) {
-        var regex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,18}$/;
+        let regex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,18}$/;
         return regex.test(password);
     }
 
     function validateAge(birthdate) {
-        var today = new Date();
-        var birthDate = new Date(birthdate);
-        var age = today.getFullYear() - birthDate.getFullYear();
-        var monthDifference = today.getMonth() - birthDate.getMonth();
+        let today = new Date();
+        let birthDate = new Date(birthdate);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        let monthDifference = today.getMonth() - birthDate.getMonth();
 
         if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
             age--;

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
-  var navbarLinks = document.getElementById('navbarLinks');
-  var postsContainer = document.getElementById('postsContainer');
+  let navbarLinks = document.getElementById('navbarLinks');
+  let postsContainer = document.getElementById('postsContainer');
 
   // Crear el usuario administrador si no existe
   function createAdminUser() {
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function checkLoggedInUser() {
-      var loggedInUser = getLoggedInUser();
+      let loggedInUser = getLoggedInUser();
       if (loggedInUser) {
           navbarLinks.innerHTML = `
               <li class="nav-item">
@@ -65,8 +65,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function loadPosts() {
-      var posts = JSON.parse(localStorage.getItem('posts')) || [];
-      var loggedInUser = getLoggedInUser();
+      let posts = JSON.parse(localStorage.getItem('posts')) || [];
+      let loggedInUser = getLoggedInUser();
 
       postsContainer.innerHTML = posts.map(function (post) {
           return `

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
-  var recoverForm = document.getElementById('recoverForm');
-  var messageDiv = document.getElementById('message');
+  let recoverForm = document.getElementById('recoverForm');
+  let messageDiv = document.getElementById('message');
 
   function showMessage(message, type) {
       messageDiv.innerHTML = `<div class="alert alert-${type}" role="alert">${message}</div>`;
@@ -9,9 +9,9 @@ document.addEventListener('DOMContentLoaded', function () {
   function handleRecoverPassword(event) {
       event.preventDefault();
 
-      var email = document.getElementById('email').value;
-      var users = JSON.parse(localStorage.getItem('users')) || [];
-      var user = users.find(function (user) {
+      let email = document.getElementById('email').value;
+      let users = JSON.parse(localStorage.getItem('users')) || [];
+      let user = users.find(function (user) {
           return user.email === email;
       });
 

@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
-  var loginForm = document.getElementById('loginForm');
-  var email = document.getElementById('email');
-  var password = document.getElementById('password');
+  let loginForm = document.getElementById('loginForm');
+  let email = document.getElementById('email');
+  let password = document.getElementById('password');
 
   function validateLoginForm(event) {
       event.preventDefault();
@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (loginForm.checkValidity()) {
           if (validateCredentials(email.value, password.value)) {
-              var users = JSON.parse(localStorage.getItem('users')) || [];
-              var user = users.find(function (user) {
+              let users = JSON.parse(localStorage.getItem('users')) || [];
+              let user = users.find(function (user) {
                   return user.email === email.value;
               });
 
@@ -28,8 +28,8 @@ document.addEventListener('DOMContentLoaded', function () {
   loginForm.addEventListener('submit', validateLoginForm);
 
   function validateCredentials(email, password) {
-      var users = JSON.parse(localStorage.getItem('users')) || [];
-      var user = users.find(function (user) {
+      let users = JSON.parse(localStorage.getItem('users')) || [];
+      let user = users.find(function (user) {
           return user.email === email && user.password === password;
       });
 
