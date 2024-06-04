@@ -74,7 +74,6 @@ document.addEventListener('DOMContentLoaded', function () {
             email: form.email.value,
             password: form.password.value,
             birthdate: form.birthdate.value,
-            address: form.address.value
         };
 
         let users = JSON.parse(localStorage.getItem('users')) || [];
