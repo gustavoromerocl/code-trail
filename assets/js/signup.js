@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
             storeUserData();
             alert('Formulario enviado exitosamente!');
             form.classList.add('was-validated');
+            window.location.href = '/login.html';
         } else {
             if (isEmailDuplicated(form.email.value)) {
                 alert('El correo electrónico ya está registrado.');
