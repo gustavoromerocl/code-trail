@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   <a class="nav-link" href="login.html">Iniciar Sesión</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="registration.html">Registrarse</a>
+                  <a class="nav-link" href="signup.html">Registrarse</a>
               </li>
           `;
       }
