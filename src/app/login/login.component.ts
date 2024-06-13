@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { LoginErrorDialogComponent } from '../login-error-dialog/login-error-dialog.component';
+import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 
 @Component({
   selector: 'app-login',
@@ -32,8 +32,13 @@ export class LoginComponent {
   login() {
     if (this.authService.login(this.username, this.password)) {
       this.router.navigate(['/home']);
-    } else {
-      this.dialog.open(LoginErrorDialogComponent);
+    } else  {
+      this.dialog.open(MessageDialogComponent, {
+        data: {
+          title: 'Error',
+          message: 'Credenciales incorrectas'
+        }
+      });
     }
   }
 }
