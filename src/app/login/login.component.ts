@@ -31,7 +31,7 @@ export class LoginComponent {
 
   login() {
     if (this.authService.login(this.username, this.password)) {
-      this.router.navigate(['/home']);
+      this.router.navigate(['/dashboard']);
     } else  {
       this.dialog.open(MessageDialogComponent, {
         data: {
