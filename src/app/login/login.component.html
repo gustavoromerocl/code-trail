@@ -1,9 +1,9 @@
 <div class="login-container">
-  <mat-card>
-    <mat-card-title>Login</mat-card-title>
+  <mat-card class="login-card">
+    <mat-card-title class="login-title">Login</mat-card-title>
     <mat-card-content>
       <form (ngSubmit)="login()" #loginForm="ngForm">
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="outline" class="full-width">
           <mat-label>Username</mat-label>
           <input 
             matInput 
@@ -18,7 +18,7 @@
           </mat-error>
         </mat-form-field>
         
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="outline" class="full-width">
           <mat-label>Password</mat-label>
           <input 
             matInput 

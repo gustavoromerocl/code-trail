@@ -3,15 +3,41 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: #f0f2f5;
 }
 
-mat-card {
+.login-card {
   width: 400px;
   padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+
+.login-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #3f51b5;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
 }
 
 .login-actions {
   display: flex;
   justify-content: center;
   margin-top: 20px;
+}
+
+button[mat-raised-button] {
+  width: 100%;
+  padding: 10px;
+}
+
+button[mat-raised-button]:disabled {
+  background-color: #dcdcdc;
+  color: #a0a0a0;
 }
