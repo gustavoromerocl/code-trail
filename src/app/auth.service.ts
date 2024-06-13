@@ -8,7 +8,7 @@ export class AuthService {
 
   login(username: string, password: string): boolean {
     // Aquí va la lógica de autenticación (ejemplo simple)
-    if (username === 'user' && password === 'password') {
+    if (username === 'admin' && password === 'admin') {
       this.isLoggedIn = true;
       return true;
     }
