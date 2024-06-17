@@ -1,0 +1,16 @@
+<div *ngIf="publication">
+  <mat-card>
+    <img mat-card-image [src]="publication.image" alt="Image">
+    <mat-card-header>
+      <mat-card-title>{{ publication.title }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ publication.content }}</p>
+      <mat-divider></mat-divider>
+      <h3>Comments</h3>
+      <div *ngFor="let comment of publication.comments">
+        <p><strong>{{ comment.username }}:</strong> {{ comment.content }}</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
