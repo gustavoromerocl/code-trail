@@ -8,7 +8,7 @@ export class PublicationService {
   private publications: Publication[] = [
     {
       id: 1,
-      username: 'user1',
+      username: 'admin',
       title: 'First Post',
       content: 'This is the content of the first post. It is quite long and should be truncated in the card view.',
       image: 'https://via.placeholder.com/150',
@@ -19,7 +19,7 @@ export class PublicationService {
     },
     {
       id: 2,
-      username: 'user1',
+      username: 'admin',
       title: 'Second Post',
       content: 'Content of the second post.',
       image: 'https://via.placeholder.com/150',
