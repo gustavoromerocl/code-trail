@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Publication } from '../../../../models/publication.model';
 import { PublicationService } from '../../../../services/publications/publications.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-publication-detail',
@@ -12,7 +13,9 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./publication-detail.component.css'],
   standalone: true,
   imports: [
+    RouterModule,
     MatCardModule,
+    MatButtonModule,
     MatDividerModule,
     CommonModule
   ]

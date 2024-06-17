@@ -1,8 +1,25 @@
-/* Estilos adicionales para el detalle de la publicación */
-.detail-container {
+mat-card {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
   margin: 20px;
 }
 
-.detail-card {
-  width: 100%;
+mat-card img {
+  max-width: 100%;
+  height: auto;
+  max-height: 33vh; /* Ajustar la altura máxima a un tercio de la vista */
+}
+
+mat-card-content {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: flex-start;
 }

@@ -12,5 +12,8 @@
         <p><strong>{{ comment.username }}:</strong> {{ comment.content }}</p>
       </div>
     </mat-card-content>
+    <mat-card-actions>
+      <button mat-button [routerLink]="['/publications']">Volver atrás</button>
+    </mat-card-actions>
   </mat-card>
 </div>

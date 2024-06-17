@@ -1,5 +1,9 @@
 .publications-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 16px; /* Espacio entre las tarjetas */
+  justify-content: center; /* Centrar las tarjetas */
+  align-items: flex-start; /* Alinea las tarjetas al inicio */
+  padding: 16px; /* Añadir padding alrededor del contenedor */
+  box-sizing: border-box; /* Incluir padding y borde en el tamaño total */
 }
