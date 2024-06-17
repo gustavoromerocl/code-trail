@@ -1,3 +1,10 @@
+.publications-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+}
+
 .publications-container {
   display: flex;
   flex-wrap: wrap;

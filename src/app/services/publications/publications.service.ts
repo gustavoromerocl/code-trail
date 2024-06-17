@@ -72,4 +72,8 @@ export class PublicationService {
   getPublicationById(id: number): Publication | undefined {
     return this.publications.find(pub => pub.id === id);
   }
+
+  addPublication(publication: Publication): void {
+    this.publications.push(publication);
+  }
 }

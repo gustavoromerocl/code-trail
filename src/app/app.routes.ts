@@ -8,6 +8,7 @@ import { PortfolioComponent } from './pages/portfolio/portfolio.component';
 import { PublicationsComponent } from './pages/publications/publications.component';
 import { PublicationsListComponent } from './pages/publications/components/publications-list/publications-list.component';
 import { PublicationDetailComponent } from './pages/publications/components/publication-detail/publication-detail.component';
+import { CreatePublicationComponent } from './pages/publications/components/create-publication/create-publication.component';
 
 export const routes: Routes = [
   { 
@@ -21,7 +22,8 @@ export const routes: Routes = [
         component: PublicationsComponent, 
         children: [
           { path: '', component: PublicationsListComponent },
-          { path: ':id', component: PublicationDetailComponent }
+          { path: 'create', component: CreatePublicationComponent },
+          { path: ':id', component: PublicationDetailComponent },
         ]
       },
       { path: 'notes', component: NotesComponent },

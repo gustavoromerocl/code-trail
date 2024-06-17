@@ -1,0 +1,26 @@
+<div class="publications-header">
+  <h1>Crear Publicacion</h1>
+  <button mat-raised-button color="primary" [routerLink]="['/publications']">Volver a atrás</button>
+</div>
+<mat-card>
+  <mat-card-content>
+    <form (ngSubmit)="createPublication()">
+      <mat-form-field appearance="fill">
+        <mat-label>Título</mat-label>
+        <input matInput [(ngModel)]="title" name="title" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Contenido</mat-label>
+        <textarea matInput [(ngModel)]="content" name="content" required></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>URL de la Imagen</mat-label>
+        <input matInput [(ngModel)]="image" name="image">
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">Crear</button>
+    </form>
+  </mat-card-content>
+</mat-card>
