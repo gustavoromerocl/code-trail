@@ -6,6 +6,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { NotesComponent } from './pages/notes/notes.component';
 import { PortfolioComponent } from './pages/portfolio/portfolio.component';
 import { PublicationsComponent } from './pages/publications/publications.component';
+import { PublicationsListComponent } from './pages/publications/components/publications-list/publications-list.component';
+import { PublicationDetailComponent } from './pages/publications/components/publication-detail/publication-detail.component';
 
 export const routes: Routes = [
   { 
@@ -14,7 +16,14 @@ export const routes: Routes = [
     canActivate: [authGuard], 
     children: [
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'publications', component: PublicationsComponent },
+      { 
+        path: 'publications', 
+        component: PublicationsComponent, 
+        children: [
+          { path: '', component: PublicationsListComponent },
+          { path: ':id', component: PublicationDetailComponent }
+        ]
+      },
       { path: 'notes', component: NotesComponent },
       { path: 'portfolio', component: PortfolioComponent },
     ]
