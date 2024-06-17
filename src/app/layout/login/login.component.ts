@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
+import { MessageDialogComponent } from '../../components/message-dialog/message-dialog.component';
 
 @Component({
   selector: 'app-login',
