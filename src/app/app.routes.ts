@@ -9,6 +9,7 @@ import { PublicationsComponent } from './pages/publications/publications.compone
 import { PublicationsListComponent } from './pages/publications/components/publications-list/publications-list.component';
 import { PublicationDetailComponent } from './pages/publications/components/publication-detail/publication-detail.component';
 import { CreatePublicationComponent } from './pages/publications/components/create-publication/create-publication.component';
+import { RegisterComponent } from './layout/register/register.component';
 
 export const routes: Routes = [
   { 
@@ -30,6 +31,7 @@ export const routes: Routes = [
       // { path: 'portfolio', component: PortfolioComponent },
     ]
   },
+  { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: '**', redirectTo: 'home' }
 ];
