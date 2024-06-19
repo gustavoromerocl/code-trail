@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Validators, AbstractControl, ValidationErrors, FormGroup, FormBuilder, AbstractControlOptions } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -24,7 +24,8 @@ import { MessageDialogComponent } from '../../components/message-dialog/message-
     MatButtonModule,
     MatCardModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    RouterModule,
   ]
 })
 export class RegisterComponent {
