@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './layout/login/login.component';
-import { authGuard } from './auth.guard';
 import { NavigationComponent } from './layout/navigation/navigation.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { NotesComponent } from './pages/notes/notes.component';
@@ -10,6 +9,7 @@ import { PublicationsListComponent } from './pages/publications/components/publi
 import { PublicationDetailComponent } from './pages/publications/components/publication-detail/publication-detail.component';
 import { CreatePublicationComponent } from './pages/publications/components/create-publication/create-publication.component';
 import { RegisterComponent } from './layout/register/register.component';
+import { authGuard } from './services/auth/auth.guard';
 
 export const routes: Routes = [
   { 

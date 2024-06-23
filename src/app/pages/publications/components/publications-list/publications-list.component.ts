@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Publication } from '../../../../models/publication.model';
 import { PublicationService } from '../../../../services/publications/publications.service';
-import { AuthService } from '../../../../auth.service';
+import { AuthService } from '../../../../services/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';

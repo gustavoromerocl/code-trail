@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { PublicationService } from '../../../../services/publications/publications.service';
 import { Publication } from '../../../../models/publication.model';
-import { AuthService } from '../../../../auth.service';
+import { AuthService } from '../../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-create-publication',
