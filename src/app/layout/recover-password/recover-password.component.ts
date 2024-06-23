@@ -44,11 +44,11 @@ export class RecoverPasswordComponent {
       this.dialog.open(MessageDialogComponent, {
         data: {
           title: 'Aviso',
-          message: 'Se está registrado recibirá un correo de recuperación en el siguiente correo: ' + this.recoverPasswordForm.value.email
+          message: 'Si está registrado recibirá un correo de recuperación en el siguiente correo: ' + this.recoverPasswordForm.value.email
         }
+      }).afterClosed().subscribe(() => {
+        this.router.navigate(['/login']);
       });
-      
-      this.router.navigate(['/login']);
     }
   }
 
