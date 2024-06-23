@@ -10,6 +10,7 @@ import { PublicationDetailComponent } from './pages/publications/components/publ
 import { CreatePublicationComponent } from './pages/publications/components/create-publication/create-publication.component';
 import { RegisterComponent } from './layout/register/register.component';
 import { authGuard } from './services/auth/auth.guard';
+import { RecoverPasswordComponent } from './layout/recover-password/recover-password.component';
 
 export const routes: Routes = [
   { 
@@ -33,5 +34,6 @@ export const routes: Routes = [
   },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'recover-password', component: RecoverPasswordComponent },
   { path: '**', redirectTo: 'home' }
 ];
