@@ -23,7 +23,8 @@ export class AuthService {
         email: 'admin@admin.com',
         password: 'Admin123',
         birthDate: '2000-01-01',
-        role: 'admin'
+        role: 'admin',
+        isActive: true
       };
       users.push(defaultAdmin);
       this.saveUsers(users);
@@ -46,7 +47,7 @@ export class AuthService {
 
   login(email: string, password: string): boolean {
     const users = this.loadUsers();
-    const user = users.find(u => u.email === email && u.password === password);
+    const user = users.find(u => u.email === email && u.password === password && u.isActive);
     if (user) {
       this.setCurrentUser(email);
       return true;
@@ -86,6 +87,9 @@ export class AuthService {
     if (!user.role) {
       user.role = this.DEFAULT_ROLE;
     }
+    if (user.isActive === undefined) {
+      user.isActive = true;
+    }
     users.push(user);
     this.saveUsers(users);
   }
@@ -99,5 +103,18 @@ export class AuthService {
     const users = this.loadUsers();
     const user = users.find(u => u.email === email);
     return user ? user.role : null;
+  }
+
+  getAllUsers(): User[] {
+    return this.loadUsers();
+  }
+
+  updateUserStatus(email: string, isActive: boolean): void {
+    const users = this.loadUsers();
+    const userIndex = users.findIndex(user => user.email === email);
+    if (userIndex > -1) {
+      users[userIndex].isActive = isActive;
+      this.saveUsers(users);
+    }
   }
 }

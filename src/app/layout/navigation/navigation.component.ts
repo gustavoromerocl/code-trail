@@ -1,38 +1,42 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
+import { AuthService } from '../../services/auth/auth.service';
+import { Observable } from 'rxjs';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { map, shareReplay } from 'rxjs/operators';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { MatListModule } from '@angular/material/list';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
-  styleUrl: './navigation.component.css',
+  styleUrls: ['./navigation.component.css'],
   standalone: true,
   imports: [
     CommonModule,
-    RouterOutlet,
-    RouterModule,
+    MatSidenavModule,
     MatToolbarModule,
     MatButtonModule,
-    MatSidenavModule,
-    MatListModule,
     MatIconModule,
-    AsyncPipe,
+    MatListModule,
+    RouterModule
   ]
 })
 export class NavigationComponent {
-  private breakpointObserver = inject(BreakpointObserver);
-
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
+
+  constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService) {}
+
+  isAdmin(): boolean {
+    const currentUser = this.authService.getCurrentUser();
+    return currentUser ? this.authService.getUserRole(currentUser) === 'admin' : false;
+  }
 }

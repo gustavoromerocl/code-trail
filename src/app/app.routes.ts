@@ -13,6 +13,7 @@ import { authGuard } from './services/auth/auth.guard';
 import { RecoverPasswordComponent } from './layout/recover-password/recover-password.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
+import { UserManagementComponent } from './pages/user/user-management.component';
 
 export const routes: Routes = [
   { 
@@ -32,7 +33,8 @@ export const routes: Routes = [
       },
       // { path: 'notes', component: NotesComponent },
       // { path: 'portfolio', component: PortfolioComponent },
-      { path: 'profile', component: UserProfileComponent, data: { roles: ['admin', 'user'] } }
+      { path: 'profile', component: UserProfileComponent, data: { roles: ['admin', 'user'] } },
+      { path: 'user-management', component: UserManagementComponent, data: { roles: ['admin'] } }
     ]
   },
   { path: 'register', component: RegisterComponent },
