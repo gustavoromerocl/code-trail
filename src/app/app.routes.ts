@@ -12,30 +12,32 @@ import { RegisterComponent } from './layout/register/register.component';
 import { authGuard } from './services/auth/auth.guard';
 import { RecoverPasswordComponent } from './layout/recover-password/recover-password.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 
 export const routes: Routes = [
   { 
     path: '', 
     component: NavigationComponent, 
-    canActivate: [authGuard], 
+    canActivateChild: [authGuard], 
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { 
         path: 'publications', 
-        component: PublicationsComponent, 
+        component: PublicationsComponent,
         children: [
-          { path: '', component: PublicationsListComponent },
-          { path: 'create', component: CreatePublicationComponent },
-          { path: ':id', component: PublicationDetailComponent },
+          { path: '', component: PublicationsListComponent, data: { roles: ['admin', 'user'] } },
+          { path: 'create', component: CreatePublicationComponent, data: { roles: ['admin', 'user'] } },
+          { path: ':id', component: PublicationDetailComponent, data: { roles: ['admin', 'user'] } },
         ]
       },
       // { path: 'notes', component: NotesComponent },
       // { path: 'portfolio', component: PortfolioComponent },
-      { path: 'profile', component: UserProfileComponent }
+      { path: 'profile', component: UserProfileComponent, data: { roles: ['admin', 'user'] } }
     ]
   },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'recover-password', component: RecoverPasswordComponent },
+  { path: 'unauthorized', component: UnauthorizedComponent },
   { path: '**', redirectTo: 'home' }
 ];

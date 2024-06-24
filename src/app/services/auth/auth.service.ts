@@ -5,7 +5,7 @@ import { User } from '../../models/user.model';
   providedIn: 'root'
 })
 export class AuthService {
-  private currentUser: string | null = null;
+  private readonly DEFAULT_ROLE = 'user';
 
   constructor() {
     this.initializeDefaultAdmin();
@@ -83,6 +83,9 @@ export class AuthService {
 
   register(user: User): void {
     const users = this.loadUsers();
+    if (!user.role) {
+      user.role = this.DEFAULT_ROLE;
+    }
     users.push(user);
     this.saveUsers(users);
   }
