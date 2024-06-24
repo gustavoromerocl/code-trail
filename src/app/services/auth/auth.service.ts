@@ -7,8 +7,27 @@ import { User } from '../../models/user.model';
 export class AuthService {
   private currentUser: string | null = null;
 
+  constructor() {
+    this.initializeDefaultAdmin();
+  }
+
   private isLocalStorageAvailable(): boolean {
     return typeof localStorage !== 'undefined';
+  }
+
+  private initializeDefaultAdmin(): void {
+    const users = this.loadUsers();
+    if (users.length === 0) {
+      const defaultAdmin: User = {
+        name: 'Admin',
+        email: 'admin@admin.com',
+        password: 'Admin123',
+        birthDate: '2000-01-01',
+        role: 'admin'
+      };
+      users.push(defaultAdmin);
+      this.saveUsers(users);
+    }
   }
 
   public loadUsers(): User[] {
@@ -71,5 +90,11 @@ export class AuthService {
   emailExists(email: string): boolean {
     const users = this.loadUsers();
     return users.some(user => user.email === email);
+  }
+
+  getUserRole(email: string): string | null {
+    const users = this.loadUsers();
+    const user = users.find(u => u.email === email);
+    return user ? user.role : null;
   }
 }
