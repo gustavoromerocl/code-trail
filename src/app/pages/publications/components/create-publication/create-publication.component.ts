@@ -42,7 +42,7 @@ export class CreatePublicationComponent {
       username: username as string, // Reemplazar con el usuario actual
       title: this.title,
       content: this.content,
-      image: this.image,
+      image: 'https://t3.ftcdn.net/jpg/04/60/01/36/360_F_460013622_6xF8uN6ubMvLx0tAJECBHfKPoNOR5cRa.jpg',
       comments: this.comments
     };
 

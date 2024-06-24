@@ -9,8 +9,16 @@
       <mat-divider></mat-divider>
       <h3>Comments</h3>
       <div *ngFor="let comment of publication.comments">
-        <p><strong>{{ comment.username }}:</strong> {{ comment.content }}</p>
+        <p><strong>{{ comment.username }} ({{ comment.date }}):</strong> {{ comment.content }}</p>
       </div>
+      <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Agregar Comentario</mat-label>
+          <textarea matInput formControlName="content"></textarea>
+          <mat-error *ngIf="commentForm.get('content')?.invalid">Comentario es requerido</mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" [disabled]="commentForm.invalid">Comentar</button>
+      </form>
     </mat-card-content>
     <mat-card-actions>
       <button mat-button [routerLink]="['/publications']">Volver atrás</button>
