@@ -18,8 +18,8 @@ export class PublicationService {
     } else {
       // Si no hay publicaciones en localStorage, inicializar con algunas publicaciones de prueba
       this.publications = [
-        { id: 1, username: 'admin', title: 'First Post', content: 'This is the content of the first post. It is quite long and should be truncated in the card view.', image: 'https://via.placeholder.com/150', comments: [{ username: 'user2', content: 'Nice post!', date: new Date().toLocaleString() }, { username: 'user3', content: 'Thanks for sharing!', date: new Date().toLocaleString() }] },
-        { id: 2, username: 'admin', title: 'Second Post', content: 'Content of the second post.', image: 'https://via.placeholder.com/150', comments: [] },
+        { id: 1, username: 'admin', title: 'First Post', content: 'This is the content of the first post. It is quite long and should be truncated in the card view.', image: 'https://t3.ftcdn.net/jpg/04/60/01/36/360_F_460013622_6xF8uN6ubMvLx0tAJECBHfKPoNOR5cRa.jpg', comments: [{ username: 'user2', content: 'Nice post!', date: new Date().toLocaleString() }, { username: 'user3', content: 'Thanks for sharing!', date: new Date().toLocaleString() }] },
+        { id: 2, username: 'admin', title: 'Second Post', content: 'Content of the second post.', image: 'https://t3.ftcdn.net/jpg/04/60/01/36/360_F_460013622_6xF8uN6ubMvLx0tAJECBHfKPoNOR5cRa.jpg', comments: [] },
       ];
       this.savePublications();
     }
@@ -27,6 +27,10 @@ export class PublicationService {
 
   private savePublications(): void {
     localStorage.setItem('publications', JSON.stringify(this.publications));
+  }
+
+  getPublications(): Publication[] {
+    return this.publications;
   }
 
   getPublicationsByUsername(username: string): Publication[] {
