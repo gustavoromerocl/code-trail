@@ -34,6 +34,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 export class PublicationDetailComponent implements OnInit {
   publication: Publication | undefined;
   commentForm: FormGroup;
+  rating: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -49,6 +50,7 @@ export class PublicationDetailComponent implements OnInit {
   ngOnInit(): void {
     const id = +this.route.snapshot.paramMap.get('id')!;
     this.publication = this.publicationService.getPublicationById(id);
+    this.rating = this.publication?.rating || 0;
   }
 
   onSubmit(): void {
@@ -60,6 +62,13 @@ export class PublicationDetailComponent implements OnInit {
       };
       this.publicationService.addComment(this.publication.id, comment);
       this.commentForm.reset();
+    }
+  }
+
+  onRate(rating: number): void {
+    if (this.publication) {
+      this.publicationService.updateRating(this.publication.id, rating);
+      this.rating = rating;
     }
   }
 }

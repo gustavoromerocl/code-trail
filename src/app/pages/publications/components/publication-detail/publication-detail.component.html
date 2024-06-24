@@ -7,7 +7,13 @@
     <mat-card-content>
       <p>{{ publication.content }}</p>
       <mat-divider></mat-divider>
-      <h3>Comments</h3>
+      <h3>Califica esta publicación</h3>
+      <div class="rating">
+        <mat-icon *ngFor="let star of [1, 2, 3, 4, 5]" (click)="onRate(star)" [ngClass]="{'selected': star <= rating}">
+          {{ star <= rating ? 'star' : 'star_border' }}
+        </mat-icon>
+      </div>
+      <h3>Comentarios</h3>
       <div *ngFor="let comment of publication.comments">
         <p><strong>{{ comment.username }} ({{ comment.date }}):</strong> {{ comment.content }}</p>
       </div>

@@ -5,6 +5,7 @@ export interface Publication {
   content: string;
   image: string;
   comments: Comment[];
+  rating?: number;
 }
 
 export interface Comment {

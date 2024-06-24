@@ -33,3 +33,19 @@ mat-card-actions {
 .full-width {
   width: 100%;
 }
+
+.rating {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.rating mat-icon {
+  cursor: pointer;
+  font-size: 30px;
+}
+
+.rating .selected {
+  color: gold;
+}

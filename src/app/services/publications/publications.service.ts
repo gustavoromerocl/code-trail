@@ -28,4 +28,11 @@ export class PublicationService {
       publication.comments.push(comment);
     }
   }
+
+  updateRating(publicationId: number, rating: number): void {
+    const publication = this.getPublicationById(publicationId);
+    if (publication) {
+      publication.rating = rating;
+    }
+  }
 }
