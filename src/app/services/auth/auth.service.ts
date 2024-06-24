@@ -5,40 +5,61 @@ import { User } from '../../models/user.model';
   providedIn: 'root'
 })
 export class AuthService {
-  private isLoggedIn = false;
   private currentUser: string | null = null;
 
-  private loadUsers(): User[] {
-    const users = localStorage.getItem('users');
-    return users ? JSON.parse(users) : [];
+  private isLocalStorageAvailable(): boolean {
+    return typeof localStorage !== 'undefined';
+  }
+
+  public loadUsers(): User[] {
+    if (this.isLocalStorageAvailable()) {
+      const users = localStorage.getItem('users');
+      return users ? JSON.parse(users) : [];
+    }
+    return [];
   }
 
   private saveUsers(users: User[]): void {
-    localStorage.setItem('users', JSON.stringify(users));
+    if (this.isLocalStorageAvailable()) {
+      localStorage.setItem('users', JSON.stringify(users));
+    }
   }
 
-  login(username: string, password: string): boolean {
+  login(email: string, password: string): boolean {
     const users = this.loadUsers();
-    const user = users.find(u => u.email === username && u.password === password);
+    const user = users.find(u => u.email === email && u.password === password);
     if (user) {
-      this.isLoggedIn = true;
-      this.currentUser = username;
+      this.setCurrentUser(email);
       return true;
     }
     return false;
   }
 
   logout(): void {
-    this.isLoggedIn = false;
-    this.currentUser = null;
+    this.clearCurrentUser();
   }
 
   isAuthenticated(): boolean {
-    return this.isLoggedIn;
+    return this.getCurrentUser() !== null;
   }
 
   getCurrentUser(): string | null {
-    return this.currentUser;
+    if (this.isLocalStorageAvailable()) {
+      return localStorage.getItem('currentUser');
+    }
+    return null;
+  }
+
+  private setCurrentUser(email: string): void {
+    if (this.isLocalStorageAvailable()) {
+      localStorage.setItem('currentUser', email);
+    }
+  }
+
+  private clearCurrentUser(): void {
+    if (this.isLocalStorageAvailable()) {
+      localStorage.removeItem('currentUser');
+    }
   }
 
   register(user: User): void {

@@ -11,6 +11,7 @@ import { CreatePublicationComponent } from './pages/publications/components/crea
 import { RegisterComponent } from './layout/register/register.component';
 import { authGuard } from './services/auth/auth.guard';
 import { RecoverPasswordComponent } from './layout/recover-password/recover-password.component';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 
 export const routes: Routes = [
   { 
@@ -30,6 +31,7 @@ export const routes: Routes = [
       },
       // { path: 'notes', component: NotesComponent },
       // { path: 'portfolio', component: PortfolioComponent },
+      { path: 'profile', component: UserProfileComponent }
     ]
   },
   { path: 'register', component: RegisterComponent },
