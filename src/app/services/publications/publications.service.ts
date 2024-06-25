@@ -11,6 +11,10 @@ export class PublicationService {
     this.loadPublications();
   }
 
+  /**
+   * Carga las publicaciones desde el localStorage.
+   * Si no hay publicaciones, inicializa con algunas publicaciones de prueba.
+   */
   private loadPublications(): void {
     const publications = localStorage.getItem('publications');
     if (publications) {
@@ -25,27 +29,53 @@ export class PublicationService {
     }
   }
 
+  /**
+   * Guarda las publicaciones en el localStorage.
+   */
   private savePublications(): void {
     localStorage.setItem('publications', JSON.stringify(this.publications));
   }
 
+  /**
+   * Obtiene todas las publicaciones.
+   * @returns {Publication[]} Un arreglo con todas las publicaciones.
+   */
   getPublications(): Publication[] {
     return this.publications;
   }
 
+  /**
+   * Obtiene las publicaciones de un usuario específico.
+   * @param {string} username - El nombre de usuario del autor de las publicaciones.
+   * @returns {Publication[]} Un arreglo con las publicaciones del usuario especificado.
+   */
   getPublicationsByUsername(username: string): Publication[] {
     return this.publications.filter(pub => pub.username === username);
   }
 
+  /**
+   * Obtiene una publicación por su ID.
+   * @param {number} id - El ID de la publicación.
+   * @returns {Publication | undefined} La publicación con el ID especificado, o `undefined` si no se encuentra.
+   */
   getPublicationById(id: number): Publication | undefined {
     return this.publications.find(pub => pub.id === id);
   }
 
+  /**
+   * Agrega una nueva publicación.
+   * @param {Publication} publication - La publicación a agregar.
+   */
   addPublication(publication: Publication): void {
     this.publications.push(publication);
     this.savePublications();
   }
 
+  /**
+   * Agrega un comentario a una publicación específica.
+   * @param {number} publicationId - El ID de la publicación a la que se agregará el comentario.
+   * @param {Comment} comment - El comentario a agregar.
+   */
   addComment(publicationId: number, comment: Comment): void {
     const publication = this.getPublicationById(publicationId);
     if (publication) {
@@ -54,6 +84,11 @@ export class PublicationService {
     }
   }
 
+  /**
+   * Actualiza la calificación de una publicación específica.
+   * @param {number} publicationId - El ID de la publicación cuya calificación se actualizará.
+   * @param {number} rating - La nueva calificación.
+   */
   updateRating(publicationId: number, rating: number): void {
     const publication = this.getPublicationById(publicationId);
     if (publication) {
