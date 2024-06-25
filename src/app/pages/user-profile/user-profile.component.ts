@@ -15,6 +15,10 @@ import { User } from '../../models/user.model';
 import { MessageDialogComponent } from '../../components/message-dialog/message-dialog.component';
 import { AuthService } from '../../services/auth/auth.service';
 
+/**
+ * Componente de perfil de usuario.
+ * Permite al usuario ver y editar su perfil.
+ */
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -37,6 +41,13 @@ export class UserProfileComponent implements OnInit {
   profileForm: FormGroup;
   currentUser: User | null = null;
 
+  /**
+   * Constructor del componente UserProfileComponent.
+   * @param {FormBuilder} fb - Constructor del formulario.
+   * @param {AuthService} authService - Servicio de autenticación para gestionar usuarios.
+   * @param {Router} router - Router para la navegación.
+   * @param {MatDialog} dialog - Servicio de diálogo para mostrar mensajes.
+   */
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -52,6 +63,10 @@ export class UserProfileComponent implements OnInit {
     }, { validators: this.passwordsMatchValidator } as AbstractControlOptions);
   }
 
+  /**
+   * Método de inicialización del componente.
+   * Carga el usuario actual y establece los valores del formulario.
+   */
   ngOnInit(): void {
     const email = this.authService.getCurrentUser();
     if (email) {
@@ -70,6 +85,12 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
+  /**
+   * Validador de edad.
+   * Verifica si el usuario tiene al menos 13 años.
+   * @param {AbstractControl} control - Control del formulario.
+   * @returns {ValidationErrors | null} - Errores de validación o null si la validación es exitosa.
+   */
   ageValidator(control: AbstractControl): ValidationErrors | null {
     const birthDate = new Date(control.value);
     const age = new Date().getFullYear() - birthDate.getFullYear();
@@ -79,6 +100,12 @@ export class UserProfileComponent implements OnInit {
     return null;
   }
 
+  /**
+   * Validador de coincidencia de contraseñas.
+   * Verifica si la contraseña y la confirmación de contraseña coinciden.
+   * @param {FormGroup} group - Grupo de formulario.
+   * @returns {ValidationErrors | null} - Errores de validación o null si la validación es exitosa.
+   */
   passwordsMatchValidator(group: FormGroup): ValidationErrors | null {
     const password = group.get('password')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
@@ -91,6 +118,10 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
+  /**
+   * Maneja el envío del formulario de perfil.
+   * Actualiza el perfil del usuario si el formulario es válido.
+   */
   onSubmit(): void {
     if (this.profileForm.valid) {
       const updatedUser = { ...this.currentUser, ...this.profileForm.value };
@@ -104,6 +135,10 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
+  /**
+   * Actualiza la información del usuario en el almacenamiento local.
+   * @param {User} user - Usuario actualizado.
+   */
   updateUser(user: User): void {
     const users = this.authService.loadUsers();
     const index = users.findIndex(u => u.email === user.email);
@@ -113,6 +148,10 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
+  /**
+   * Maneja la acción de cerrar sesión.
+   * Cierra la sesión del usuario y redirige a la página de inicio de sesión.
+   */
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
