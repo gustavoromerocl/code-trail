@@ -9,6 +9,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MessageDialogComponent } from '../../components/message-dialog/message-dialog.component';
 
+/**
+ * Componente de recuperación de contraseña.
+ * Permite a los usuarios solicitar un correo para recuperar su contraseña.
+ */
 @Component({
   selector: 'app-recover-password',
   templateUrl: './recover-password.component.html',
@@ -24,9 +28,22 @@ import { MessageDialogComponent } from '../../components/message-dialog/message-
   ]
 })
 export class RecoverPasswordComponent {
+  /**
+   * Formulario de recuperación de contraseña.
+   */
   recoverPasswordForm: FormGroup;
+
+  /**
+   * Indicador de si el formulario ha sido enviado.
+   */
   submitted = false;
 
+  /**
+   * Constructor del componente RecoverPasswordComponent.
+   * @param fb FormBuilder para construir el formulario.
+   * @param router Router para la navegación.
+   * @param dialog MatDialog para abrir diálogos.
+   */
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -37,10 +54,13 @@ export class RecoverPasswordComponent {
     });
   }
 
+  /**
+   * Maneja el envío del formulario de recuperación de contraseña.
+   * Si el formulario es válido, se simula el envío de un correo de recuperación.
+   */
   onSubmit(): void {
     this.submitted = true;
     if (this.recoverPasswordForm.valid) {
-      // Simulación de envío de correo de recuperación
       this.dialog.open(MessageDialogComponent, {
         data: {
           title: 'Aviso',
@@ -52,6 +72,9 @@ export class RecoverPasswordComponent {
     }
   }
 
+  /**
+   * Maneja el reinicio del formulario de recuperación de contraseña.
+   */
   onReset(): void {
     this.recoverPasswordForm.reset();
     this.submitted = false;
