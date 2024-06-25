@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { User } from '../../models/user.model';
 
+/**
+ * Servicio de autenticación para gestionar el inicio y cierre de sesión.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -15,6 +18,9 @@ export class AuthService {
     return typeof localStorage !== 'undefined';
   }
 
+  /**
+   * Inicializa el usuario administrador por defecto si no hay usuarios en el almacenamiento local.
+   */
   private initializeDefaultAdmin(): void {
     const users = this.loadUsers();
     if (users.length === 0) {
@@ -45,6 +51,12 @@ export class AuthService {
     }
   }
 
+  /**
+   * Inicia sesión con el correo electrónico y la contraseña proporcionados.
+   * @param email El correo electrónico del usuario.
+   * @param password La contraseña del usuario.
+   * @returns `true` si las credenciales son correctas, de lo contrario `false`.
+   */
   login(email: string, password: string): boolean {
     const users = this.loadUsers();
     const user = users.find(u => u.email === email && u.password === password && u.isActive);
@@ -82,6 +94,10 @@ export class AuthService {
     }
   }
 
+  /**
+   * Registra un nuevo usuario.
+   * @param user El usuario a registrar.
+   */
   register(user: User): void {
     const users = this.loadUsers();
     if (!user.role) {
@@ -94,27 +110,24 @@ export class AuthService {
     this.saveUsers(users);
   }
 
+  /**
+   * Verifica si un correo electrónico ya está registrado.
+   * @param email El correo electrónico a verificar.
+   * @returns `true` si el correo electrónico ya está registrado, de lo contrario `false`.
+   */
   emailExists(email: string): boolean {
     const users = this.loadUsers();
     return users.some(user => user.email === email);
   }
 
+  /**
+   * Obtiene el rol de un usuario por su correo electrónico.
+   * @param email El correo electrónico del usuario.
+   * @returns El rol del usuario o `null` si el usuario no existe.
+   */
   getUserRole(email: string): string | null {
     const users = this.loadUsers();
     const user = users.find(u => u.email === email);
     return user ? user.role : null;
-  }
-
-  getAllUsers(): User[] {
-    return this.loadUsers();
-  }
-
-  updateUserStatus(email: string, isActive: boolean): void {
-    const users = this.loadUsers();
-    const userIndex = users.findIndex(user => user.email === email);
-    if (userIndex > -1) {
-      users[userIndex].isActive = isActive;
-      this.saveUsers(users);
-    }
   }
 }
