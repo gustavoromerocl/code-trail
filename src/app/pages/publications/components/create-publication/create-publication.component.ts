@@ -9,6 +9,9 @@ import { PublicationService } from '../../../../services/publications/publicatio
 import { Publication } from '../../../../models/publication.model';
 import { AuthService } from '../../../../services/auth/auth.service';
 
+/**
+ * Componente para la creación de publicaciones.
+ */
 @Component({
   selector: 'app-create-publication',
   templateUrl: './create-publication.component.html',
@@ -29,12 +32,22 @@ export class CreatePublicationComponent {
   image = '';
   comments = [];
 
+  /**
+   * Constructor del componente CreatePublicationComponent.
+   * @param authService Servicio de autenticación.
+   * @param publicationService Servicio de gestión de publicaciones.
+   * @param router Router para la navegación.
+   */
   constructor(
     private authService: AuthService,
     private publicationService: PublicationService,
     private router: Router
   ) {}
 
+  /**
+   * Crea una nueva publicación y la añade al servicio de publicaciones.
+   * Luego navega a la vista de publicaciones.
+   */
   createPublication() {
     const username = this.authService.getCurrentUser();
     const newPublication: Publication = {

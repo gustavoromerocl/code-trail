@@ -8,7 +8,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { PublicationCardComponent } from '../publication-card/publication-card.component';
 
-
+/**
+ * Componente que muestra una lista de publicaciones del usuario autenticado.
+ */
 @Component({
   selector: 'app-publications-list',
   templateUrl: './publications-list.component.html',
@@ -23,13 +25,25 @@ import { PublicationCardComponent } from '../publication-card/publication-card.c
   ]
 })
 export class PublicationsListComponent implements OnInit {
+  /**
+   * Lista de publicaciones del usuario autenticado.
+   * @type {Publication[]}
+   */
   publications: Publication[] = [];
 
+  /**
+   * Constructor del componente.
+   * @param {PublicationService} publicationService - Servicio de publicaciones.
+   * @param {AuthService} authService - Servicio de autenticación.
+   */
   constructor(
     private publicationService: PublicationService,
     private authService: AuthService
   ) { }
 
+  /**
+   * Método de ciclo de vida de Angular. Se ejecuta al inicializar el componente.
+   */
   ngOnInit(): void {
     const username = this.authService.getCurrentUser();
     if (username) {
