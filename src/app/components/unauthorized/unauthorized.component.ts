@@ -3,8 +3,11 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
 
+/**
+ * Componente para mostrar un mensaje de acceso no autorizado.
+ * Este componente muestra un mensaje indicando que el usuario no tiene permiso para acceder a la página y proporciona un botón para volver al dashboard.
+ */
 @Component({
   selector: 'app-unauthorized',
   template: `
