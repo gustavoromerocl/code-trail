@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../../models/user.model';
 
 /**
- * Servicio de autenticación para gestionar el inicio y cierre de sesión.
+ * Servicio de autenticación para manejar usuarios y sus sesiones.
  */
 @Injectable({
   providedIn: 'root'
@@ -14,12 +14,16 @@ export class AuthService {
     this.initializeDefaultAdmin();
   }
 
+  /**
+   * Verifica si localStorage está disponible.
+   * @returns {boolean} True si localStorage está disponible, de lo contrario false.
+   */
   private isLocalStorageAvailable(): boolean {
     return typeof localStorage !== 'undefined';
   }
 
   /**
-   * Inicializa el usuario administrador por defecto si no hay usuarios en el almacenamiento local.
+   * Inicializa un usuario administrador por defecto si no hay usuarios en localStorage.
    */
   private initializeDefaultAdmin(): void {
     const users = this.loadUsers();
@@ -37,6 +41,10 @@ export class AuthService {
     }
   }
 
+  /**
+   * Carga los usuarios desde localStorage.
+   * @returns {User[]} Lista de usuarios.
+   */
   public loadUsers(): User[] {
     if (this.isLocalStorageAvailable()) {
       const users = localStorage.getItem('users');
@@ -45,6 +53,10 @@ export class AuthService {
     return [];
   }
 
+  /**
+   * Guarda la lista de usuarios en localStorage.
+   * @param {User[]} users - Lista de usuarios a guardar.
+   */
   private saveUsers(users: User[]): void {
     if (this.isLocalStorageAvailable()) {
       localStorage.setItem('users', JSON.stringify(users));
@@ -52,10 +64,10 @@ export class AuthService {
   }
 
   /**
-   * Inicia sesión con el correo electrónico y la contraseña proporcionados.
-   * @param email El correo electrónico del usuario.
-   * @param password La contraseña del usuario.
-   * @returns `true` si las credenciales son correctas, de lo contrario `false`.
+   * Inicia sesión de un usuario.
+   * @param {string} email - Correo electrónico del usuario.
+   * @param {string} password - Contraseña del usuario.
+   * @returns {boolean} True si las credenciales son correctas y el usuario está activo, de lo contrario false.
    */
   login(email: string, password: string): boolean {
     const users = this.loadUsers();
@@ -67,14 +79,25 @@ export class AuthService {
     return false;
   }
 
+  /**
+   * Cierra la sesión del usuario actual.
+   */
   logout(): void {
     this.clearCurrentUser();
   }
 
+  /**
+   * Verifica si un usuario está autenticado.
+   * @returns {boolean} True si hay un usuario autenticado, de lo contrario false.
+   */
   isAuthenticated(): boolean {
     return this.getCurrentUser() !== null;
   }
 
+  /**
+   * Obtiene el usuario actual autenticado.
+   * @returns {string | null} Correo electrónico del usuario actual si está autenticado, de lo contrario null.
+   */
   getCurrentUser(): string | null {
     if (this.isLocalStorageAvailable()) {
       return localStorage.getItem('currentUser');
@@ -82,12 +105,19 @@ export class AuthService {
     return null;
   }
 
+  /**
+   * Establece el usuario actual en localStorage.
+   * @param {string} email - Correo electrónico del usuario a establecer.
+   */
   private setCurrentUser(email: string): void {
     if (this.isLocalStorageAvailable()) {
       localStorage.setItem('currentUser', email);
     }
   }
 
+  /**
+   * Elimina el usuario actual de localStorage.
+   */
   private clearCurrentUser(): void {
     if (this.isLocalStorageAvailable()) {
       localStorage.removeItem('currentUser');
@@ -96,7 +126,7 @@ export class AuthService {
 
   /**
    * Registra un nuevo usuario.
-   * @param user El usuario a registrar.
+   * @param {User} user - Usuario a registrar.
    */
   register(user: User): void {
     const users = this.loadUsers();
@@ -112,8 +142,8 @@ export class AuthService {
 
   /**
    * Verifica si un correo electrónico ya está registrado.
-   * @param email El correo electrónico a verificar.
-   * @returns `true` si el correo electrónico ya está registrado, de lo contrario `false`.
+   * @param {string} email - Correo electrónico a verificar.
+   * @returns {boolean} True si el correo electrónico ya está registrado, de lo contrario false.
    */
   emailExists(email: string): boolean {
     const users = this.loadUsers();
@@ -122,12 +152,34 @@ export class AuthService {
 
   /**
    * Obtiene el rol de un usuario por su correo electrónico.
-   * @param email El correo electrónico del usuario.
-   * @returns El rol del usuario o `null` si el usuario no existe.
+   * @param {string} email - Correo electrónico del usuario.
+   * @returns {string | null} Rol del usuario si se encuentra, de lo contrario null.
    */
   getUserRole(email: string): string | null {
     const users = this.loadUsers();
     const user = users.find(u => u.email === email);
     return user ? user.role : null;
+  }
+
+  /**
+   * Obtiene la lista de todos los usuarios.
+   * @returns {User[]} Lista de todos los usuarios.
+   */
+  getAllUsers(): User[] {
+    return this.loadUsers();
+  }
+
+  /**
+   * Actualiza el estado de activación de un usuario.
+   * @param {string} email - Correo electrónico del usuario.
+   * @param {boolean} isActive - Nuevo estado de activación.
+   */
+  updateUserStatus(email: string, isActive: boolean): void {
+    const users = this.loadUsers();
+    const userIndex = users.findIndex(user => user.email === email);
+    if (userIndex > -1) {
+      users[userIndex].isActive = isActive;
+      this.saveUsers(users);
+    }
   }
 }
