@@ -24,6 +24,14 @@ export class DashboardComponent implements OnInit {
   constructor(private publicationService: PublicationService) {}
 
   ngOnInit(): void {
-    this.publications = this.publicationService.getPublications();
+    this.publicationService.publications$.subscribe({
+      next: (data) => {
+        this.publications = data;
+        console.log('Publications:', this.publications);
+      },
+      error: (error) => {
+        console.error('Error fetching publications:', error);
+      }
+    });
   }
 }
