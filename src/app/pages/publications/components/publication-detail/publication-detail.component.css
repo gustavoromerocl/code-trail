@@ -49,3 +49,17 @@ mat-card-actions {
 .rating .selected {
   color: gold;
 }
+
+.comment-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.comment-container p {
+  margin: 0;
+}
+
+.comment-container button {
+  margin-left: 8px;
+}

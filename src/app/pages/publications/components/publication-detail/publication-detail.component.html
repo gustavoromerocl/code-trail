@@ -14,8 +14,11 @@
         </mat-icon>
       </div>
       <h3>Comentarios</h3>
-      <div *ngFor="let comment of publication.comments">
+      <div *ngFor="let comment of publication.comments; let i = index" class="comment-container">
         <p><strong>{{ comment.username }} ({{ comment.date }}):</strong> {{ comment.content }}</p>
+        <button mat-icon-button *ngIf="comment.username === currentUser" (click)="onDeleteComment(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
       </div>
       <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="outline" class="full-width">

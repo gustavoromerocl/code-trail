@@ -51,7 +51,7 @@ export class CreatePublicationComponent {
   createPublication() {
     const username = this.authService.getCurrentUser();
     const newPublication: Publication = {
-      id: Math.random(), // Generar un ID único
+      id: this.generateId(), // Generar un ID único
       username: username as string, // Reemplazar con el usuario actual
       title: this.title,
       content: this.content,
@@ -61,5 +61,9 @@ export class CreatePublicationComponent {
 
     this.publicationService.addPublication(newPublication);
     this.router.navigate(['/publications']);
+  }
+
+  private generateId(): number {
+    return Math.floor(Math.random() * 1000000);
   }
 }

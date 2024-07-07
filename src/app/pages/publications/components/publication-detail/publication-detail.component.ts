@@ -11,11 +11,10 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MessageDialogComponent } from '../../../../components/message-dialog/message-dialog.component';
+import { Router } from 'express';
 
-/**
- * Componente que muestra el detalle de una publicación.
- */
 @Component({
   selector: 'app-publication-detail',
   templateUrl: './publication-detail.component.html',
@@ -35,74 +34,58 @@ import { MatDialogModule } from '@angular/material/dialog';
   ]
 })
 export class PublicationDetailComponent implements OnInit {
-  /**
-   * Publicación a mostrar en el detalle.
-   * @type {Publication | undefined}
-   */
   publication: Publication | undefined;
-
-  /**
-   * Formulario para agregar comentarios.
-   * @type {FormGroup}
-   */
   commentForm: FormGroup;
-
-  /**
-   * Calificación de la publicación.
-   * @type {number}
-   */
   rating: number = 0;
+  currentUser: string | null = null;
 
-  /**
-   * Constructor del componente.
-   * @param {ActivatedRoute} route - Servicio de rutas activadas.
-   * @param {PublicationService} publicationService - Servicio de publicaciones.
-   * @param {FormBuilder} fb - Constructor de formularios reactivos.
-   * @param {AuthService} authService - Servicio de autenticación.
-   */
   constructor(
     private route: ActivatedRoute,
     private publicationService: PublicationService,
     private fb: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private dialog: MatDialog,
   ) {
     this.commentForm = this.fb.group({
       content: ['', Validators.required]
     });
   }
 
-  /**
-   * Método de ciclo de vida de Angular. Se ejecuta al inicializar el componente.
-   */
   ngOnInit(): void {
     const id = +this.route.snapshot.paramMap.get('id')!;
     this.publication = this.publicationService.getPublicationById(id);
     this.rating = this.publication?.rating || 0;
+    this.currentUser = this.authService.getCurrentUser();
   }
 
-  /**
-   * Envía el comentario al servicio de publicaciones.
-   */
   onSubmit(): void {
     if (this.commentForm.valid && this.publication) {
       const comment: Comment = {
         username: this.authService.getCurrentUser()!,
         content: this.commentForm.value.content,
-        date: new Date().toLocaleString() // Añadir la fecha actual al comentario
+        date: new Date().toLocaleString()
       };
       this.publicationService.addComment(this.publication.id, comment);
       this.commentForm.reset();
     }
   }
 
-  /**
-   * Actualiza la calificación de la publicación.
-   * @param {number} rating - Nueva calificación.
-   */
   onRate(rating: number): void {
     if (this.publication) {
       this.publicationService.updateRating(this.publication.id, rating);
       this.rating = rating;
+    }
+  }
+
+  onDeleteComment(index: number): void {
+    if (this.publication) {
+      this.publicationService.removeComment(this.publication.id, index);
+      this.dialog.open(MessageDialogComponent, {
+        data: {
+          title: 'Aviso',
+          message: 'Se ha eliminado el comentario'
+        }
+      })
     }
   }
 }

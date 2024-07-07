@@ -61,22 +61,26 @@ export class PublicationService {
     const dummyPublications = [
       {
         id: 1,
-        username: 'usuario prueba',
+        username: 'admin',
         title: 'First Post',
         content: 'This is the content of the first post. It is quite long and should be truncated in the card view.',
         image: 'https://t3.ftcdn.net/jpg/04/60/01/36/360_F_460013622_6xF8uN6ubMvLx0tAJECBHfKPoNOR5cRa.jpg',
         comments: [
           { username: 'user2', content: 'Nice post!', date: new Date().toLocaleString() },
           { username: 'user3', content: 'Thanks for sharing!', date: new Date().toLocaleString() }
-        ]
+        ],
+        rating: 2
       },
       {
         id: 2,
-        username: 'usuario prueba',
+        username: 'admin',
         title: 'Second Post',
         content: 'Content of the second post.',
         image: 'https://t3.ftcdn.net/jpg/04/60/01/36/360_F_460013622_6xF8uN6ubMvLx0tAJECBHfKPoNOR5cRa.jpg',
-        comments: []
+        comments: [
+          { username: 'admin@admin.com', content: 'hola mundo', date: new Date().toLocaleString() }
+        ],
+        rating: 1
       }
     ];
     this.publicationsSubject.next(dummyPublications);
@@ -103,8 +107,6 @@ export class PublicationService {
     const updatedPublications = [...this.publicationsSubject.value, publication];
     this.publicationsSubject.next(updatedPublications);
     this.savePublications();
-
-    // Post the updated list of publications to Firebase
     this.updatePublicationsInFirebase(updatedPublications);
   }
 
@@ -117,8 +119,6 @@ export class PublicationService {
     });
     this.publicationsSubject.next(updatedPublications);
     this.savePublications();
-
-    // Post the updated list of publications to Firebase
     this.updatePublicationsInFirebase(updatedPublications);
   }
 
@@ -131,8 +131,18 @@ export class PublicationService {
     });
     this.publicationsSubject.next(updatedPublications);
     this.savePublications();
+    this.updatePublicationsInFirebase(updatedPublications);
+  }
 
-    // Post the updated list of publications to Firebase
+  removeComment(publicationId: number, commentIndex: number): void {
+    const updatedPublications = this.publicationsSubject.value.map(pub => {
+      if (pub.id === publicationId && commentIndex > -1 && commentIndex < pub.comments.length) {
+        pub.comments.splice(commentIndex, 1);
+      }
+      return pub;
+    });
+    this.publicationsSubject.next(updatedPublications);
+    this.savePublications();
     this.updatePublicationsInFirebase(updatedPublications);
   }
 

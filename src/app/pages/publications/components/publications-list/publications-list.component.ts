@@ -44,10 +44,20 @@ export class PublicationsListComponent implements OnInit {
   /**
    * Método de ciclo de vida de Angular. Se ejecuta al inicializar el componente.
    */
+
   ngOnInit(): void {
     const username = this.authService.getCurrentUser();
-    if (username) {
-      this.publications = this.publicationService.getPublicationsByUsername(username);
-    }
+    this.publicationService.publications$.subscribe({
+      next: (data) => {
+        if (username) {
+        this.publications = this.publicationService.getPublicationsByUsername(username);
+
+        console.log('Publications:', this.publications);
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching publications:', error);
+      }
+    });
   }
 }
