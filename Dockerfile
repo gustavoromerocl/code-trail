@@ -8,7 +8,7 @@ COPY package.json package.json
 RUN npm install
 
 # Etapa de construcción
-FROM node:18.17.1 AS builder
+FROM node:18.19.0 AS builder
 
 WORKDIR /app
 
