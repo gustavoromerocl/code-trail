@@ -1,0 +1,13 @@
+.dashboard-container {
+  padding: 20px;
+}
+
+.publications-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.publication-card {
+  width: 300px;
+}

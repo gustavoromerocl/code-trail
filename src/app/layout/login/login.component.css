@@ -1,0 +1,37 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.card-container {
+  width: 400px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: #303030; /* Fondo oscuro */
+}
+
+.card-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #e91e63; /* Color del título acorde al tema magenta-violet */
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 8px; /* Reducir el margen inferior */
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px; 
+}
+
+.link {
+  text-align: center;
+  margin-top: 10px;
+}
