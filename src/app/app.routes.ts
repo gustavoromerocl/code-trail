@@ -18,7 +18,8 @@ import { UserManagementComponent } from './pages/user/user-management.component'
 export const routes: Routes = [
   { 
     path: '', 
-    component: NavigationComponent, 
+    component: NavigationComponent,
+    canActivate: [authGuard],
     canActivateChild: [authGuard], 
     children: [
       { path: 'dashboard', component: DashboardComponent },
