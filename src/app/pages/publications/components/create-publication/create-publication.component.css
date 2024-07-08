@@ -5,6 +5,10 @@
   padding: 16px;
 }
 
+button {
+  max-width: 250px;
+}
+
 mat-card {
   margin: 20px;
   padding: 20px;

@@ -5,6 +5,10 @@
   padding: 16px;
 }
 
+button {
+  max-width: 250px;
+}
+
 .publications-container {
   display: flex;
   flex-wrap: wrap;
