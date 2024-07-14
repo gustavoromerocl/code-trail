@@ -20,6 +20,10 @@ Este proyecto consiste en el desarrollo de un foro enfocado en la documentación
 
 ```npm test```
 
+## Documentación:
+
+```npm run docs```
+
 ## Dependencias instaladas
 
 | Package            | Version |
