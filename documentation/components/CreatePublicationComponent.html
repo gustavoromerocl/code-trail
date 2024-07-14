@@ -235,6 +235,10 @@
                             <li>
                                 <a href="#createPublication" >createPublication</a>
                             </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#generateId" >generateId</a>
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -378,6 +382,45 @@ Luego navega a la vista de publicaciones.</p>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateId"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>generateId</b></span>
+                        <a href="#generateId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>generateId()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="66"
+                                    class="link-to-prism">src/app/pages/publications/components/create-publication/create-publication.component.ts:66</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
 
                         </div>
                 </td>
@@ -573,7 +616,7 @@ export class CreatePublicationComponent {
   createPublication() {
     const username &#x3D; this.authService.getCurrentUser();
     const newPublication: Publication &#x3D; {
-      id: Math.random(), // Generar un ID único
+      id: this.generateId(), // Generar un ID único
       username: username as string, // Reemplazar con el usuario actual
       title: this.title,
       content: this.content,
@@ -584,13 +627,17 @@ export class CreatePublicationComponent {
     this.publicationService.addPublication(newPublication);
     this.router.navigate([&#x27;/publications&#x27;]);
   }
+
+  private generateId(): number {
+    return Math.floor(Math.random() * 1000000);
+  }
 }
 </code></pre>
     </div>
 
     <div class="tab-pane fade " id="templateData">
         <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;publications-header&quot;&gt;
-  &lt;h1&gt;Crear Publicacion&lt;/h1&gt;
+  &lt;h5&gt;Crear Publicacion&lt;/h5&gt;
   &lt;button mat-raised-button color&#x3D;&quot;primary&quot; [routerLink]&#x3D;&quot;[&#x27;/publications&#x27;]&quot;&gt;Volver a atrás&lt;/button&gt;
 &lt;/div&gt;
 &lt;mat-card&gt;
@@ -627,6 +674,10 @@ export class CreatePublicationComponent {
   justify-content: space-between;
   align-items: center;
   padding: 16px;
+}
+
+button {
+  max-width: 250px;
 }
 
 mat-card {
@@ -666,7 +717,7 @@ mat-form-field {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="publications-header">  <h1>Crear Publicacion</h1>  <button mat-raised-button color="primary" [routerLink]="[\'/publications\']">Volver a atrás</button></div><mat-card>  <mat-card-content>    <form (ngSubmit)="createPublication()">      <mat-form-field appearance="fill">        <mat-label>Título</mat-label>        <input matInput [(ngModel)]="title" name="title" required>      </mat-form-field>      <mat-form-field appearance="fill">        <mat-label>Contenido</mat-label>        <textarea matInput [(ngModel)]="content" name="content" required></textarea>      </mat-form-field>      <!-- <mat-form-field appearance="fill">        <mat-label>URL de la Imagen</mat-label>        <input matInput [(ngModel)]="image" name="image">      </mat-form-field> -->      <button mat-raised-button color="primary" type="submit">Crear</button>    </form>  </mat-card-content></mat-card></div>'
+        var COMPONENT_TEMPLATE = '<div><div class="publications-header">  <h5>Crear Publicacion</h5>  <button mat-raised-button color="primary" [routerLink]="[\'/publications\']">Volver a atrás</button></div><mat-card>  <mat-card-content>    <form (ngSubmit)="createPublication()">      <mat-form-field appearance="fill">        <mat-label>Título</mat-label>        <input matInput [(ngModel)]="title" name="title" required>      </mat-form-field>      <mat-form-field appearance="fill">        <mat-label>Contenido</mat-label>        <textarea matInput [(ngModel)]="content" name="content" required></textarea>      </mat-form-field>      <!-- <mat-form-field appearance="fill">        <mat-label>URL de la Imagen</mat-label>        <input matInput [(ngModel)]="image" name="image">      </mat-form-field> -->      <button mat-raised-button color="primary" type="submit">Crear</button>    </form>  </mat-card-content></mat-card></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CreatePublicationComponent', 'selector': 'app-create-publication'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MessageDialogComponent', 'selector': 'app-message-dialog'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NotesComponent', 'selector': 'app-notes'},{'name': 'PortfolioComponent', 'selector': 'app-portfolio'},{'name': 'PublicationCardComponent', 'selector': 'app-publication-card'},{'name': 'PublicationDetailComponent', 'selector': 'app-publication-detail'},{'name': 'PublicationsComponent', 'selector': 'app-publications'},{'name': 'PublicationsListComponent', 'selector': 'app-publications-list'},{'name': 'RecoverPasswordComponent', 'selector': 'app-recover-password'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'UnauthorizedComponent', 'selector': 'app-unauthorized'},{'name': 'UserManagementComponent', 'selector': 'app-user-management'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'CreatePublicationComponent'};

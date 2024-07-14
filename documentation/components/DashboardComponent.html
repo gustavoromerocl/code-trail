@@ -399,7 +399,15 @@ export class DashboardComponent implements OnInit {
   constructor(private publicationService: PublicationService) {}
 
   ngOnInit(): void {
-    this.publications &#x3D; this.publicationService.getPublications();
+    this.publicationService.publications$.subscribe({
+      next: (data) &#x3D;&gt; {
+        this.publications &#x3D; data;
+        console.log(&#x27;Publications:&#x27;, this.publications);
+      },
+      error: (error) &#x3D;&gt; {
+        console.error(&#x27;Error fetching publications:&#x27;, error);
+      }
+    });
   }
 }
 </code></pre>
@@ -407,7 +415,7 @@ export class DashboardComponent implements OnInit {
 
     <div class="tab-pane fade " id="templateData">
         <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;dashboard-container&quot;&gt;
-  &lt;h2&gt;Todas las publicaciones&lt;/h2&gt;
+  &lt;h5&gt;Todas las publicaciones&lt;/h5&gt;
   &lt;div class&#x3D;&quot;publications-list&quot;&gt;
     &lt;mat-card *ngFor&#x3D;&quot;let publication of publications&quot; class&#x3D;&quot;publication-card&quot;&gt;
       &lt;img mat-card-image [src]&#x3D;&quot;publication.image&quot; alt&#x3D;&quot;Image&quot;&gt;
@@ -439,6 +447,7 @@ export class DashboardComponent implements OnInit {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  justify-content: center;
 }
 
 .publication-card {
@@ -472,7 +481,7 @@ export class DashboardComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="dashboard-container">  <h2>Todas las publicaciones</h2>  <div class="publications-list">    <mat-card *ngFor="let publication of publications" class="publication-card">      <img mat-card-image [src]="publication.image" alt="Image">      <mat-card-header>        <mat-card-title>{{ publication.title }}</mat-card-title>        <mat-card-subtitle>{{ publication.username }}</mat-card-subtitle>      </mat-card-header>      <mat-card-content>        <p>{{ publication.content }}</p>      </mat-card-content>      <mat-card-actions>        <button mat-button [routerLink]="[\'/publications\', publication.id]">View Details</button>      </mat-card-actions>    </mat-card>  </div></div></div>'
+        var COMPONENT_TEMPLATE = '<div><div class="dashboard-container">  <h5>Todas las publicaciones</h5>  <div class="publications-list">    <mat-card *ngFor="let publication of publications" class="publication-card">      <img mat-card-image [src]="publication.image" alt="Image">      <mat-card-header>        <mat-card-title>{{ publication.title }}</mat-card-title>        <mat-card-subtitle>{{ publication.username }}</mat-card-subtitle>      </mat-card-header>      <mat-card-content>        <p>{{ publication.content }}</p>      </mat-card-content>      <mat-card-actions>        <button mat-button [routerLink]="[\'/publications\', publication.id]">View Details</button>      </mat-card-actions>    </mat-card>  </div></div></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CreatePublicationComponent', 'selector': 'app-create-publication'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MessageDialogComponent', 'selector': 'app-message-dialog'},{'name': 'NavigationComponent', 'selector': 'app-navigation'},{'name': 'NotesComponent', 'selector': 'app-notes'},{'name': 'PortfolioComponent', 'selector': 'app-portfolio'},{'name': 'PublicationCardComponent', 'selector': 'app-publication-card'},{'name': 'PublicationDetailComponent', 'selector': 'app-publication-detail'},{'name': 'PublicationsComponent', 'selector': 'app-publications'},{'name': 'PublicationsListComponent', 'selector': 'app-publications-list'},{'name': 'RecoverPasswordComponent', 'selector': 'app-recover-password'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'UnauthorizedComponent', 'selector': 'app-unauthorized'},{'name': 'UserManagementComponent', 'selector': 'app-user-management'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'DashboardComponent'};
