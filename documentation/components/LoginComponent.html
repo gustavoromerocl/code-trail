@@ -597,14 +597,31 @@ export class LoginComponent {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-container::before {
+  content: &quot;&quot;;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(&#x27;../../assets/img/login-image.webp&#x27;) no-repeat center center;
+  background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
+  opacity: 0.5; /* Ajusta la opacidad según sea necesario */
+  z-index: -1; /* Asegúrate de que la imagen de fondo esté detrás del contenido */
 }
 
 .card-container {
   width: 400px;
   padding: 20px;
+  opacity: 0.8;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   background-color: #303030; /* Fondo oscuro */
+  z-index: 1; /* Asegúrate de que el contenido esté sobre la imagen de fondo */
 }
 
 .card-title {
@@ -622,7 +639,7 @@ export class LoginComponent {
 .actions {
   display: flex;
   justify-content: center;
-  margin-top: 10px; 
+  margin-top: 10px;
 }
 
 .link {
